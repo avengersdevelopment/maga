@@ -70,6 +70,10 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
         "n.i.g.g.a",
         "n!gga",
         "larp",
+        "twt",
+        "twttr",
+        "twitter",
+        "twit",
       ];
 
       const forbiddenWordPattern = new RegExp(badWords.join("|"), "i");
