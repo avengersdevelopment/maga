@@ -47,17 +47,9 @@ export default function Container() {
 
   const handleGetAnswer = async () => {
     await axios
-      .post(
-        "/api/tts",
-        {
-          message: latestQuestion?.question?.text ?? "",
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        },
-      )
+      .post("/api/tts", {
+        message: latestQuestion?.question?.text ?? "",
+      })
       .then((res) => {
         const _question = {
           ...latestQuestion,
