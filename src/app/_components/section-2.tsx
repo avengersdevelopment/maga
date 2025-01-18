@@ -127,15 +127,15 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
             </p>
           </div>
 
-          <div className="flex items-center gap-1 rounded-md bg-[#061936] px-2 py-1 md:gap-2">
+          <div className="flex items-center gap-1 rounded-md bg-[#061936] px-4 py-4 md:gap-2">
             <Image
               src={"/assets/homepage/coin-icon.png"}
               width={480}
               height={480}
               alt="Coin"
-              className="h-[15px] w-auto hover:animate-shake md:h-[25px]"
+              className="h-[15px] w-auto hover:animate-shake md:h-[64px]"
             />
-            <p className="text-xl font-bold text-white">{total}</p>
+            <p className="text-3xl font-bold text-white">{total}</p>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -144,7 +144,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                     width={480}
                     height={480}
                     alt="Coin"
-                    className="ml-1 h-[15px] w-auto md:ml-4"
+                    className="ml-1 h-[15px] md:h-[30px] w-auto"
                   />
                 </TooltipTrigger>
                 <TooltipContent>
@@ -154,9 +154,9 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                       width={480}
                       height={480}
                       alt="Coin"
-                      className="h-[15px] w-auto"
+                      className="h-[25px] w-auto"
                     />
-                    <p className="">Get Trump MemeCoin by Commenting Below!</p>
+                    <p className="text-xl">Get Trump MemeCoin by Commenting Below!</p>
                   </div>
                 </TooltipContent>
               </Tooltip>

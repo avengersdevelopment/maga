@@ -15,7 +15,7 @@ export const Container = () => {
 
   useEffect(() => {
     if (user) {
-      router.replace("/");
+      router.replace("/#livestream");
     }
   }, [user]);
 

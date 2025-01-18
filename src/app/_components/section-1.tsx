@@ -23,7 +23,7 @@ export const Section1 = () => {
         width={1000}
         height={1000}
         alt="Char"
-        className="absolute -bottom-10 left-0 z-40 h-[50vh] w-auto md:left-[25vw] md:h-[75vh]"
+        className="absolute -bottom-24 left-0 z-40 h-[50vh] w-auto scale-[180%] md:left-[25vw] md:h-[75vh] md:scale-105"
         priority
       />
 
@@ -44,8 +44,18 @@ export const Section1 = () => {
         className="absolute bottom-0 left-[5%] right-0 top-[15%] h-auto w-[90vw]"
         priority
       />
-      <div className="absolute -bottom-16 left-[4vw] z-40 md:left-[10vw]">
-        <div className="rotate-[4deg] rounded-[40px] bg-white p-6 pb-12 pt-4 md:p-8 md:pb-12 md:pt-6">
+
+      <Image
+        src={"/assets/homepage/trump-2025.png"}
+        width={1000}
+        height={1000}
+        alt="2025"
+        className="absolute bottom-0 left-[5%] right-0 top-[30%] block h-auto w-[90vw] md:hidden"
+        priority
+      />
+
+      <div className="absolute -bottom-16 left-[4vw] z-40 py-2 md:left-[10vw] md:py-8">
+        <div className="rotate-[4deg] rounded-b-none rounded-t-[40px] bg-white p-6 pb-12 pt-4 md:p-8 md:pb-12 md:pt-6">
           <div className="flex rotate-[-4deg] flex-col gap-2 pb-8 pt-4">
             {navItems?.map((item, index) => {
               return (
