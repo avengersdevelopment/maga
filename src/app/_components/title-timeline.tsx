@@ -2,7 +2,7 @@
 
 export const TitleTimeline = () => {
   return (
-    <div className="flex h-full w-full justify-center bg-white md:h-[35vh]">
+    <div className="flex h-full w-full justify-center bg-white md:h-[45vh]">
       <div className="relative h-full w-[90vw]">
         <div className="absolute bottom-0 left-0 right-0 top-0 md:top-0">
           <p

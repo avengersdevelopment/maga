@@ -30,7 +30,7 @@ export const Header = ({ total }: HeaderProps) => {
         isScroll ? "bg-[#061936]" : "bg-transparent",
       )}
     >
-      <div className="my-8 flex h-full w-full max-w-[90vw] items-center justify-between py-2">
+      <div className="my-2 flex h-full w-full max-w-[90vw] items-center justify-between py-2">
         <p className="text-xl font-futuraBold text-white md:text-4xl">TRUMPLIVE</p>
 
         <div className="flex items-center gap-8">
