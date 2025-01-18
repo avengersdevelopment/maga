@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/utils/classname";
 import { IVideo } from "@/utils/video";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 interface VideoItemProps {
@@ -50,18 +50,29 @@ export default function VideoItem({
   }, [isCurrent]);
 
   return (
-    <div className={cn(isCurrent ? "block" : "hidden")} key={index}>
-      <video
-        ref={videoRef}
-        width="1080"
-        height="1920"
-        controls={false}
-        muted
-        preload="none"
-        key={item?.id}
-      >
-        <source src={item.src} type="video/mp4" />
-      </video>
+    <div className="absolute left-0 top-0 z-20" key={index}>
+      <AnimatePresence>
+        {isCurrent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <video
+              ref={videoRef}
+              width="1080"
+              height="1920"
+              controls={false}
+              muted
+              preload="none"
+              key={item?.id}
+            >
+              <source src={item.src} type="video/mp4" />
+            </video>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

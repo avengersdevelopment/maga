@@ -1,18 +1,19 @@
 "use client";
 
-import { useUserStore } from "@/store/user-store";
-import { cn } from "@/utils/classname";
-import { createClient } from "@/utils/supabase/client";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { IChat } from "./container";
-import { useRouter } from "next/navigation";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/tooltip";
+import { useUserStore } from "@/store/user-store";
+import { cn } from "@/utils/classname";
+import { createClient } from "@/utils/supabase/client";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { IChat } from "./container";
 
 interface Section2Props {
   chats: IChat[];
@@ -32,6 +33,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
   const [isCommentDisabled, setIsCommentDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [newComment, setNewComment] = useState("");
+  const [isForbiddenWord, setIsForbiddenWord] = useState<boolean>(false);
 
   const {
     user,
@@ -44,6 +46,13 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
 
   const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newComment.trim()) {
+      const badWords = ["bundled", "scam", "rug", "nigger", "nigga"];
+
+      if (badWords.includes(newComment.toLowerCase())) {
+        setIsForbiddenWord(true);
+        return;
+      }
+
       if (!user) {
         router.replace("/welcome");
         return;
@@ -109,6 +118,14 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
       return () => clearInterval(interval);
     }
   }, [lastCommentDate]);
+
+  useEffect(() => {
+    if (isForbiddenWord) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isForbiddenWord]);
 
   return (
     <section
@@ -220,14 +237,42 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                     }
                   }}
                   onKeyDown={handleSubmit}
-                  disabled={isCommentDisabled}
+                  disabled={isCommentDisabled || isForbiddenWord}
                 />
-                butt
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isForbiddenWord && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
+            <div className="w-[320px] rounded-3xl bg-[#061936] px-8 py-6 md:w-[480px]">
+              <div className="flex flex-col items-center gap-2">
+                <h2 className="font-futuraBold text-center text-3xl italic tracking-wider text-white">
+                  You Entered a <br /> Forbiden Word
+                </h2>
+                <p className="mb-4 text-center text-base font-medium text-white">
+                  This is a warning, do not enter <br /> that word again
+                </p>
+                <button
+                  className="w-[180px] rounded-md bg-[#BB133E] px-4 py-2 text-white hover:animate-shake"
+                  onClick={() => setIsForbiddenWord(false)}
+                >
+                  SORRY TRUMP :(
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

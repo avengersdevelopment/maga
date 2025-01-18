@@ -167,7 +167,7 @@ export default function Container() {
     <section>
       <audio ref={audioQuestionRef} src={""} hidden />
       <audio ref={audioAnswerRef} src={""} hidden />
-      <div className="relative">
+      <div className="relative h-[450px] w-[800px]">
         {videos?.map((item, index) => {
           return (
             <VideoItem
@@ -179,7 +179,7 @@ export default function Container() {
             />
           );
         })}
-        <div className="absolute bottom-12 left-12">
+        <div className="absolute bottom-12 left-12 z-40">
           <div className="flex flex-col items-start justify-start">
             <div className="bg-black/25 px-2">
               {isQuestionInteract && (
