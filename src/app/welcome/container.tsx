@@ -32,10 +32,10 @@ export const Container = () => {
 
       <div className="absolute bottom-0 left-0 right-0 top-0">
         <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-          <p className="text-xl font-bold italic text-white md:text-4xl">
+          <p className="text-xl font-bold italic text-white md:text-6xl">
             Join the Movement
           </p>
-          <p className="text-md px-8 text-center text-white md:w-1/2 md:text-xl">
+          <p className="text-md px-8 text-center text-white md:w-[650px] md:text-2xl">
             Let&apos;s personalize your tremendous experience! Enter your name
             to get started, and get noticed by Trump.
           </p>
@@ -44,7 +44,7 @@ export const Container = () => {
             type="text"
             placeholder={"Enter your name here..."}
             className={cn(
-              "mx-4 mb-3 mt-1 w-1/2 rounded-md border border-white bg-transparent px-2 py-1 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
+              "mx-4 mb-3 mt-14 w-1/2 rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none placeholder:text-md md:w-[650px]",
             )}
             onChange={(e) => {
               if (e.target.value) {
