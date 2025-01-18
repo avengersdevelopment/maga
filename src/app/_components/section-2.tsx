@@ -118,10 +118,10 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
       <div className="flex h-full w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="mb-10 mt-16 flex w-3/4 flex-col">
-            <p className="text-nowrap text-xl font-bold text-[#061936] md:text-6xl">
+            <p className="text-nowrap text-xl font-futuraBold font-bold text-[#061936] md:text-8xl">
               WITNESS AND INTERACT WITH
             </p>
-            <p className="text-xl font-bold text-[#061936] md:text-6xl">
+            <p className="text-xl font-futuraBold font-bold text-[#061936] md:text-8xl">
               <span className="text-[#BB133E]">THE ICONIC</span> DONALD TRUMP,
               LIVE.
             </p>

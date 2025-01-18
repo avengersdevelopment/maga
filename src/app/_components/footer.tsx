@@ -32,7 +32,7 @@ export const Footer = () => {
             />
           </Link>
 
-          <p className="md:text-md text-sm font-bold text-white md:text-2xl">
+          <p className="md:text-md text-sm font-futuraBold text-white md:text-2xl">
             © 2025 Trump MemeCoin. All Rights Reserved.
           </p>
         </div>

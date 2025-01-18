@@ -31,7 +31,7 @@ export const Header = ({ total }: HeaderProps) => {
       )}
     >
       <div className="my-8 flex h-full w-full max-w-[90vw] items-center justify-between py-2">
-        <p className="text-xl font-bold text-white md:text-3xl">TRUMPLIVE</p>
+        <p className="text-xl font-futuraBold text-white md:text-4xl">TRUMPLIVE</p>
 
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
@@ -40,9 +40,9 @@ export const Header = ({ total }: HeaderProps) => {
               width={480}
               height={480}
               alt="Coin"
-              className="h-[15px] w-auto hover:animate-shake md:h-[55px]"
+              className="h-[15px] w-auto hover:animate-shake md:h-[45px]"
             />
-            <p className="text-xl font-bold text-white md:text-[28px]">
+            <p className="text-xl font-bold text-white md:text-[24px]">
               {total}
             </p>
           </div>
@@ -53,7 +53,7 @@ export const Header = ({ total }: HeaderProps) => {
               width={480}
               height={480}
               alt="Buy"
-              className="h-[25px] w-auto hover:animate-shake md:h-[55px]"
+              className="h-[25px] w-auto hover:animate-shake md:h-[45px]"
             />
           </Link>
         </div>
