@@ -114,7 +114,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
     <section className="flex h-screen w-full justify-center bg-white py-8">
       <div className="flex h-full w-full max-w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
-          <div className="flex w-3/4 flex-col">
+          <div className="flex w-3/4 flex-col mt-16">
             <p className="text-nowrap text-xl font-bold text-[#061936] md:text-6xl">
               WITNESS AND INTERACT WITH
             </p>
@@ -163,11 +163,11 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
 
         <div className="flex h-full w-full flex-col gap-2 md:flex-row">
           <div className="basis-1/2 border md:basis-2/3">
-            {/* <iframe
+            <iframe
               className="h-full w-full"
               allowFullScreen
               src="https://player.kick.com/trump-live"
-            /> */}
+            />
           </div>
 
           <div className="basis-1/2 rounded-md border bg-[#061936] md:basis-1/3">

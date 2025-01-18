@@ -15,7 +15,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        dm: ["var(--font-dm)"],
+        futura: ["var(--font-futura)"],
       },
       container: {
         center: true,

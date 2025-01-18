@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const PartOfStory = () => {
   return (
-    <div className="h-full w-full border-y border-[#061936] py-10">
+    <div className="h-full w-full border-y border-[#061936] py-16 mb-16">
       <div className="flex w-full flex-col gap-4 md:flex-row">
         <Image
           src={"/assets/homepage/story-left.png"}
