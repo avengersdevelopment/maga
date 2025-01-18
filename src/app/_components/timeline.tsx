@@ -80,31 +80,25 @@ export const Timeline = () => {
                 width={480}
                 height={480}
                 alt=""
-                className="h-[50px] w-auto"
+                className="h-[50px] w-auto md:mt-3 md:h-[3vh]"
               />
 
               <div className="my-2 flex w-full flex-col gap-4">
-                <div className="flex w-full gap-2">
+                <div className="flex w-full items-center gap-2">
                   <p
                     className={cn(
-                      "font-futuraBold text-nowrap text-lg md:text-2xl",
+                      "text-nowrap text-lg md:text-[2vh]",
                       isActive ? "text-white" : "text-[#061936]",
                     )}
-                    style={{
-                      fontSize: 32,
-                    }}
                   >
                     {item.timeline}
                   </p>
 
                   <p
                     className={cn(
-                      "font-futuraBold hidden text-2xl capitalize md:block",
+                      "font-futuraBold hidden text-[2vh] capitalize md:block",
                       isActive ? "text-white" : "text-[#BB133E]",
                     )}
-                    style={{
-                      fontSize: 32,
-                    }}
                   >
                     {item.title}
                   </p>
@@ -123,7 +117,10 @@ export const Timeline = () => {
                 </p>
 
                 {isActive && (
-                  <p className="mb-2 text-sm font-normal text-white md:text-2xl">
+                  <p
+                    className="mb-2 text-sm font-normal text-white md:text-[2vh]"
+                    style={{ lineHeight: 1.5 }}
+                  >
                     {item.description}
                   </p>
                 )}

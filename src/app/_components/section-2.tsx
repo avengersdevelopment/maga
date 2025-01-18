@@ -167,15 +167,15 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
         </div>
 
         <div className="flex h-full w-full flex-col gap-2 md:flex-row">
-          <div className="h-[50vh] basis-1/2 rounded-xl border md:basis-2/3">
+          <div className="h-[55vh] basis-1/2 rounded-xl border md:basis-2/3">
             <iframe
-              className="h-[50vh] w-full rounded-xl"
+              className="h-[55vh] w-full rounded-xl"
               allowFullScreen
               src="https://player.kick.com/trump-live"
             />
           </div>
 
-          <div className="h-[50vh] rounded-md border bg-[#061936] md:basis-1/3">
+          <div className="h-[55vh] rounded-md border bg-[#061936] md:basis-1/3">
             <div className="flex h-full w-full flex-col">
               <p className="px-6 py-4 font-bold text-white md:text-2xl">
                 Say something and get noticed by Trump!
