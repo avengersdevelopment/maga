@@ -10,11 +10,16 @@ interface MessageResponse {
   text: string;
 }
 
+interface AudioData {
+  originalAudioUrl: string;
+}
+
 interface ApiResponse {
   success: boolean;
   data?: {
     message: string;
-    originalAudioUrl: string;
+    answer: AudioData;
+    question: AudioData;
   };
   error?: string;
 }
@@ -122,7 +127,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       }, { status: 400 });
     }
 
-    console.log("Sampe Sini")
     // Step 1: Get response from the message API
     const messageResponse = await axios.post<MessageResponse>(
       "https://flow.soluvion.com/api/v1/prediction/18acbc60-7a2a-47a0-8d3e-4a29e74b25b3",
@@ -136,15 +140,23 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       }
     );
 
-    // Step 2: Generate TTS for the response
-    const audioUrl = await makeTTSRequest(messageResponse.data.text);
+    // Step 2: Generate TTS for both question and answer in parallel
+    const [questionAudioUrl, answerAudioUrl] = await Promise.all([
+      makeTTSRequest(message),
+      makeTTSRequest(messageResponse.data.text)
+    ]);
 
     // Step 3: Return formatted response
     return NextResponse.json({
       success: true,
       data: {
         message: messageResponse.data.text,
-        originalAudioUrl: audioUrl
+        answer: {
+          originalAudioUrl: answerAudioUrl
+        },
+        question: {
+          originalAudioUrl: questionAudioUrl
+        }
       }
     }, { status: 200 });
 
