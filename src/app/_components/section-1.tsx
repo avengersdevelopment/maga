@@ -23,7 +23,7 @@ export const Section1 = () => {
         width={1000}
         height={1000}
         alt="Char"
-        className="absolute -bottom-24 left-0 z-40 h-[50vh] w-auto scale-[180%] md:left-[25vw] md:h-[75vh] md:scale-105"
+        className="absolute -bottom-0 left-0 z-40 h-[50vh] w-auto scale-[180%] md:left-[25vw] md:h-[75vh] md:scale-125"
         priority
       />
 
