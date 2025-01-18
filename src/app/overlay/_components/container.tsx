@@ -48,7 +48,7 @@ export default function Container() {
   const handleGetAnswer = async () => {
     await axios
       .post(
-        "https://web3-astrogang.7b0fqh.easypanel.host/api/synthesize",
+        "/api/tts",
         {
           message: latestQuestion?.question?.text ?? "",
         },
