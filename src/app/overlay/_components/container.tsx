@@ -85,8 +85,13 @@ export default function Container() {
         (payload: any) => {
           const content = payload?.new?.content;
           const words = content?.split(" ");
+          const blockWords = ["nigga", "nigger"];
 
-          if (!latestQuestion && words?.length <= 15) {
+          if (
+            !latestQuestion &&
+            words?.length <= 10 &&
+            !blockWords.includes(content)
+          ) {
             setLatestQuestion({
               id: generateUUID(),
               sender: payload?.new?.sender,
