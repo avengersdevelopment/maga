@@ -37,7 +37,7 @@ export const Header = ({ total, linkBuy }: HeaderProps) => {
         </p>
 
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <Image
               src={"/assets/homepage/coin-icon.png"}
               width={480}
@@ -48,7 +48,7 @@ export const Header = ({ total, linkBuy }: HeaderProps) => {
             <p className="text-xl font-bold text-white md:text-[24px]">
               {total}
             </p>
-          </div>
+          </div> */}
 
           <Link href={linkBuy}>
             <Image

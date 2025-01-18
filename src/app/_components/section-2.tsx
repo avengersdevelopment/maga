@@ -169,7 +169,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
             </p>
           </div>
 
-          <div className="flex items-center gap-1 rounded-md bg-[#061936] p-2 md:gap-2 md:p-4">
+          {/* <div className="flex items-center gap-1 rounded-md bg-[#061936] p-2 md:gap-2 md:p-4">
             <Image
               src={"/assets/homepage/coin-icon.png"}
               width={480}
@@ -205,7 +205,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex h-full w-full flex-col gap-2 md:flex-row">
