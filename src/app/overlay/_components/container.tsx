@@ -4,6 +4,7 @@ import { generateUUID } from "@/utils/string";
 import { createClient } from "@/utils/supabase/client";
 import { generateVideoIndex, videos } from "@/utils/video";
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import VideoItem from "./video-item";
@@ -181,6 +182,15 @@ export default function Container() {
             />
           );
         })}
+        <div className="absolute left-0 top-0 z-10">
+          <Image
+            src="/assets/overlay/front/bg.png"
+            height={1920}
+            width={1080}
+            alt="bg"
+            className="h-auto w-[790px]"
+          />
+        </div>
         <div className="absolute bottom-12 left-12 z-40">
           <div className="flex flex-col items-start justify-start">
             <div className="bg-black/25 px-2">
