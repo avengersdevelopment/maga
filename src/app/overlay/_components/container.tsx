@@ -36,6 +36,7 @@ export default function Container() {
 
   const handleChangeVideo = () => {
     const isAnswer = !!latestQuestion?.answer?.audio;
+    console.log("isAnswer", isAnswer);
 
     if (isAnswer) {
       setLatestAnswer(latestQuestion);

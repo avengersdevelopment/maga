@@ -8,7 +8,7 @@ export const videos: IVideo[] = [
   { id: 1, src: "/assets/overlay/front/1.mp4", isAnswer: true },
   { id: 2, src: "/assets/overlay/front/2.mp4", isAnswer: false },
   { id: 3, src: "/assets/overlay/front/3.mp4", isAnswer: true },
-  { id: 3, src: "/assets/overlay/front/4.mp4", isAnswer: false },
+  { id: 4, src: "/assets/overlay/front/4.mp4", isAnswer: false },
 ];
 
 export const generateVideoIndex = (
