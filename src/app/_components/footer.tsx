@@ -25,7 +25,7 @@ export const Footer = ({ linkX }: FooterProps) => {
 
       <div className="absolute bottom-0 left-0 top-0 w-full md:w-1/2">
         <div className="container flex h-full flex-col items-start justify-center gap-4 md:gap-8">
-          <Link href={linkX}>
+          <a href={linkX} target="_blank">
             <Image
               src={"/assets/homepage/btn-x.png"}
               width={500}
@@ -33,7 +33,7 @@ export const Footer = ({ linkX }: FooterProps) => {
               alt=""
               className="h-[15px] w-auto hover:animate-shake md:h-[30px]"
             />
-          </Link>
+          </a>
 
           <p
             className="md:text-md font-futuraBold text-sm text-white md:text-2xl"
