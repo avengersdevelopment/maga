@@ -40,7 +40,7 @@ export const Header = ({ total }: HeaderProps) => {
               width={480}
               height={480}
               alt="Coin"
-              className="h-[15px] w-auto hover:animate-shake md:h-[45px]"
+              className="h-[20px] w-auto hover:animate-shake md:h-[45px]"
             />
             <p className="text-xl font-bold text-white md:text-[24px]">
               {total}

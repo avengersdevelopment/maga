@@ -2,11 +2,11 @@
 
 export const TitleTimeline = () => {
   return (
-    <div className="flex h-full w-full justify-center bg-white md:h-[45vh]">
+    <div className="flex h-[10vh] w-full justify-center bg-white md:h-[45vh]">
       <div className="relative h-full w-[90vw]">
         <div className="absolute bottom-0 left-0 right-0 top-0 md:top-0">
           <p
-            className="text-nowrap pt-10 text-2xl font-futuraBold text-[#061936] md:text-[112px]"
+            className="text-nowrap pt-10 text-4xl font-futuraBold text-[#061936] md:text-[112px]"
             style={{ lineHeight: 1 }}
           >
             A BILLIONAIRE. A MEDIA
@@ -20,9 +20,9 @@ export const TitleTimeline = () => {
           </p>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 top-8 md:top-0">
+        <div className="absolute bottom-0 left-0 right-0 top-4 md:top-0">
           <p
-            className="text-nowrap pr-0 pt-0 text-end text-5xl font-bold text-[#061936]/10 md:text-[250px]"
+            className="text-nowrap pr-0 pt-0 text-end text-7xl font-bold text-[#061936]/10 md:text-[250px]"
             style={{ lineHeight: 1 }}
           >
             TRUMP
