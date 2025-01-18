@@ -36,6 +36,7 @@ export const Timeline = () => {
 
           return (
             <div
+              key={index}
               className={cn(
                 "flex w-full cursor-pointer items-start gap-4 rounded-lg px-4",
                 isActive ? "bg-[#061936]" : "bg-white",
@@ -50,7 +51,7 @@ export const Timeline = () => {
                 className="h-[50px] w-auto"
               />
 
-              <div className="flex w-full flex-col my-2">
+              <div className="my-2 flex w-full flex-col">
                 <div className="flex w-full gap-2">
                   <p
                     className={cn(
@@ -72,7 +73,7 @@ export const Timeline = () => {
                 </div>
 
                 {isActive && (
-                  <p className="mb-2 text-white md:text-lg text-sm">
+                  <p className="mb-2 text-sm text-white md:text-lg">
                     {item.description}
                   </p>
                 )}
