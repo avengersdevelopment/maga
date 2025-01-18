@@ -29,12 +29,18 @@ export default function Container() {
 
   const [currentVideo, setCurrentVideo] = useState<number>(2);
   const [latestQuestion, setLatestQuestion] = useState<IQuestion | null>(null);
+  const [latestAnswer, setLatestAnswer] = useState<IQuestion | null>(null);
 
   const [isQuestionInteract, setIsQuestionInteract] = useState<boolean>(false);
   const [isAnswerInteract, setIsAnswerInteract] = useState<boolean>(false);
 
   const handleChangeVideo = () => {
-    const isAnswer = !!latestQuestion?.answer;
+    const isAnswer = !!latestQuestion?.answer?.audio;
+
+    if (isAnswer) {
+      setLatestAnswer(latestQuestion);
+      setLatestQuestion(null);
+    }
 
     setCurrentVideo(generateVideoIndex(currentVideo, isAnswer));
   };
@@ -57,17 +63,20 @@ export default function Container() {
           ...latestQuestion,
           question: {
             text: latestQuestion?.question?.text,
-            audio: res?.data?.data?.question?.originalAudioUrl,
+            audio: res?.data?.data?.question?.modulatedAudioUrl,
           },
           answer: {
             text: res?.data?.data?.message,
-            audio: res?.data?.data?.answer?.originalAudioUrl,
+            audio: res?.data?.data?.answer?.modulatedAudioUrl,
           },
         };
 
         setLatestQuestion(_question);
       });
   };
+
+  console.log("latestQuestion", latestQuestion);
+  console.log("latestAnswer", latestAnswer);
 
   useEffect(() => {
     supabase
@@ -107,23 +116,37 @@ export default function Container() {
   }, [supabase]);
 
   useEffect(() => {
-    if (latestQuestion && !latestQuestion?.question?.audio) {
+    if (latestQuestion && !latestQuestion?.answer?.audio) {
       handleGetAnswer();
     }
   }, [latestQuestion]);
 
   useEffect(() => {
-    if (latestQuestion?.question?.audio) {
+    if (!!latestAnswer?.answer?.audio) {
       if (audioQuestionRef.current) {
-        audioQuestionRef.current.src = latestQuestion?.question?.audio ?? "";
+        audioQuestionRef.current.src = latestAnswer?.question?.audio ?? "";
       }
       if (audioAnswerRef.current) {
-        audioAnswerRef.current.src = latestQuestion?.answer?.audio ?? "";
+        audioAnswerRef.current.src = latestAnswer?.answer?.audio ?? "";
       }
 
       setIsQuestionInteract(true);
     }
-  }, [latestQuestion]);
+  }, [latestAnswer]);
+
+  useEffect(() => {
+    if (isQuestionInteract) {
+      setIsQuestionInteract(false);
+      setIsAnswerInteract(true);
+    }
+  }, [audioQuestionRef.current?.ended]);
+
+  useEffect(() => {
+    if (isAnswerInteract) {
+      setIsAnswerInteract(false);
+      setLatestAnswer(null);
+    }
+  }, [audioAnswerRef.current?.ended]);
 
   useEffect(() => {
     if (isQuestionInteract && audioQuestionRef.current) {
@@ -136,20 +159,6 @@ export default function Container() {
       audioAnswerRef.current.play();
     }
   }, [isAnswerInteract]);
-
-  useEffect(() => {
-    if (isQuestionInteract) {
-      setIsQuestionInteract(false);
-      setIsAnswerInteract(true);
-    }
-  }, [audioQuestionRef.current?.ended]);
-
-  useEffect(() => {
-    if (isAnswerInteract) {
-      setIsAnswerInteract(false);
-      setLatestQuestion(null);
-    }
-  }, [audioAnswerRef.current?.ended]);
 
   return (
     <section>
