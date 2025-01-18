@@ -54,10 +54,10 @@ export default function VideoItem({
       <AnimatePresence>
         {isCurrent && (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
             <video
               ref={videoRef}

@@ -141,9 +141,11 @@ export default function Container() {
         }
 
         if (audioAnswerRef.current?.ended) {
-          setIsAnswerInteract(false);
-          setLatestAnswer(null);
-          handleChangeVideo();
+          setTimeout(() => {
+            setIsAnswerInteract(false);
+            setLatestAnswer(null);
+            handleChangeVideo();
+          }, 1000);
         }
       }, 1000);
 

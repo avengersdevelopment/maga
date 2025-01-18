@@ -46,9 +46,34 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
 
   const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newComment.trim()) {
-      const badWords = ["bundled", "scam", "rug", "nigger", "nigga"];
+      const badWords = [
+        "bundled",
+        "bundeld",
+        "bundeled",
+        "b*ndled",
+        "b.u.n.d.l.e.d",
+        "bundle",
+        "bundler",
+        "scam",
+        "sc@m",
+        "s.c.a.m",
+        "s_c_a_m",
+        "$cam",
+        "rug",
+        "rugg",
+        "r*g",
+        "r.u.g",
+        "nigga",
+        "nigger",
+        "n1gga",
+        "n*gga",
+        "n.i.g.g.a",
+        "n!gga",
+      ];
 
-      if (badWords.includes(newComment.toLowerCase())) {
+      const forbiddenWordPattern = new RegExp(badWords.join("|"), "i");
+
+      if (forbiddenWordPattern.test(newComment)) {
         setIsForbiddenWord(true);
         return;
       }
@@ -251,7 +276,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.2 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           >
             <div className="w-[320px] rounded-3xl bg-[#061936] px-8 py-6 md:w-[480px]">
