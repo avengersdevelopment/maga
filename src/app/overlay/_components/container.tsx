@@ -35,7 +35,12 @@ export default function Container() {
   const [isAnswerInteract, setIsAnswerInteract] = useState<boolean>(false);
 
   const handleChangeVideo = () => {
-    const isAnswer = !!latestAnswer?.answer?.audio;
+    const isAnswer = !!latestQuestion?.answer?.audio;
+
+    if (isAnswer) {
+      setLatestAnswer(latestQuestion);
+      setLatestQuestion(null);
+    }
 
     setCurrentVideo(generateVideoIndex(currentVideo, isAnswer));
   };
@@ -58,8 +63,7 @@ export default function Container() {
           },
         };
 
-        setLatestQuestion(null);
-        setLatestAnswer(_question);
+        setLatestQuestion(_question);
       });
   };
 
@@ -129,13 +133,7 @@ export default function Container() {
   }, [latestAnswer]);
 
   useEffect(() => {
-    if (latestAnswer?.answer?.audio) {
-      handleChangeVideo();
-    }
-  }, [latestAnswer]);
-
-  useEffect(() => {
-    if (latestAnswer?.answer?.audio) {
+    if (latestAnswer) {
       const interval = setInterval(() => {
         if (audioQuestionRef.current?.ended) {
           setIsQuestionInteract(false);
