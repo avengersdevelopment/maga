@@ -1,52 +1,36 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-interface NavigationItem {
-  title: string;
-  link: string;
+interface HeaderProps {
+  total: number;
 }
-
-const navigations: NavigationItem[] = [
-  {
-    title: 'Chatbot',
-    link: '/chatbot'
-  },
-  {
-    title: 'Activity Log',
-    link: '/activity-log'
-  },
-  {
-    title: 'Proof Of Concept',
-    link: '/poc'
-  }
-
-];
-
-export const Header = () => {
+export const Header = ({ total }: HeaderProps) => {
   return (
-    <header className='sticky top-0 backdrop-blur-sm z-50'>
-      <div className='p-4 border border-black'>
-        <div className='container border border-black px-4 py-2 flex justify-between items-center gap-4'>
-          <div className='flex gap-4 items-center'>
+    <header className="fixed top-0 z-50 w-full backdrop-blur-sm">
+      <div className="container flex h-full w-full items-center justify-between py-2">
+        <p className="text-xl font-bold text-white md:text-3xl">TRUMPLIVE</p>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <Image
-              src={'https://picsum.photos/40'}
-              width={40}
-              height={40}
-              alt='app logo'
+              src={"/assets/homepage/coin-icon.png"}
+              width={480}
+              height={480}
+              alt="Coin"
+              className="h-[15px] w-auto hover:animate-shake md:h-[25px]"
             />
-
-            <Link href={'/'} className='underline'>App Name</Link>
+            <p className="text-xl font-bold text-white">{total}</p>
           </div>
 
-          <div className='flex gap-4'>
-            {navigations.map((navigation, index) => {
-              return (
-                <Link key={index} href={navigation.link} className='underline'>
-                  {navigation.title}
-                </Link>
-              );
-            })}
-          </div>
+          <Link href={""}>
+            <Image
+              src={"/assets/homepage/btn-buy.png"}
+              width={480}
+              height={480}
+              alt="Buy"
+              className="h-[25px] w-auto hover:animate-shake md:h-[35px]"
+            />
+          </Link>
         </div>
       </div>
     </header>

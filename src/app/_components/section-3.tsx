@@ -1,8 +1,15 @@
+"use client";
+
+import { PartOfStory } from "./part-of-story";
+import { Timeline } from "./timeline";
+
 export const Section3 = () => {
   return (
-    <section className='w-full text-center content-center h-screen bg-yellow-500'>
-      {/* Content */}
-      Section 3
+    <section className="flex h-full w-full justify-center bg-white py-8">
+      <div className="container flex h-full w-full flex-col items-center">
+        <Timeline />
+        <PartOfStory />
+      </div>
     </section>
   );
 };
