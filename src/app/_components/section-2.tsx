@@ -175,7 +175,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
             />
           </div>
 
-          <div className="basis-1/2 rounded-md border bg-[#061936] md:basis-1/3">
+          <div className="flex-1 rounded-md border bg-[#061936] md:basis-1/3">
             <div className="flex h-full w-full flex-col">
               <p className="px-6 py-4 font-bold text-white md:text-2xl">
                 Say something and get noticed by Trump!
@@ -186,7 +186,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
               {/* List Chat */}
               <div
                 ref={listRef}
-                className="flex h-full w-full flex-col overflow-y-auto px-6 py-4"
+                className="flex h-full max-h-[75vh] w-full flex-col overflow-y-auto px-6 py-4"
               >
                 {commentsList.map((comment) => {
                   const isBot = comment.sender.includes("Bot");

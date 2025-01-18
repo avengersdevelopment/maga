@@ -2,11 +2,11 @@
 
 export const TitleTimeline = () => {
   return (
-    <div className="flex h-[20vh] w-full justify-center bg-white md:h-[50vh] py-20">
+    <div className="flex h-[20vh] w-full justify-center bg-white md:h-[50vh]">
       <div className="relative h-full w-[90vw]">
         <div className="absolute bottom-0 left-0 right-0 top-0 md:top-12">
           <p
-            className="text-nowrap pl-8 pt-10 text-2xl font-bold text-[#061936] md:text-[96px]"
+            className="text-nowrap pl-8 pt-10 text-2xl font-futuraBold text-[#061936] md:text-[112px]"
             style={{ lineHeight: 1 }}
           >
             A BILLIONAIRE. A MEDIA
