@@ -67,6 +67,7 @@ export default function Container() {
       });
   };
 
+  console.log("currentVideo", currentVideo);
   console.log("latestQuestion", latestQuestion);
   console.log("latestAnswer", latestAnswer);
 
@@ -161,17 +162,19 @@ export default function Container() {
       <audio ref={audioQuestionRef} src={""} hidden />
       <audio ref={audioAnswerRef} src={""} hidden />
       <div className="relative">
-        {videos?.map((item, index) => {
-          return (
-            <VideoItem
-              item={item}
-              handleChangeVideo={handleChangeVideo}
-              currentVideo={currentVideo}
-              key={index}
-              index={index}
-            />
-          );
-        })}
+        <div className="relative">
+          {videos?.map((item, index) => {
+            return (
+              <VideoItem
+                item={item}
+                handleChangeVideo={handleChangeVideo}
+                currentVideo={currentVideo}
+                key={index}
+                index={index}
+              />
+            );
+          })}
+        </div>
         <div className="absolute bottom-12 left-12">
           <div className="flex flex-col items-start justify-start">
             <div className="bg-black/25 px-2">

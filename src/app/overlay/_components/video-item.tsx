@@ -50,20 +50,24 @@ export default function VideoItem({
   }, [isCurrent]);
 
   return (
-    <div className={cn(isCurrent ? "block" : "hidden")} key={index}>
-      <div>
-        <video
-          ref={videoRef}
-          width="1080"
-          height="1920"
-          controls={false}
-          muted
-          preload="none"
-          key={item?.id}
-        >
-          <source src={item.src} type="video/mp4" />
-        </video>
-      </div>
+    <div
+      className={cn(
+        "absolute left-0 top-0",
+        isCurrent ? "opacity-100" : "opacity-0",
+      )}
+      key={index}
+    >
+      <video
+        ref={videoRef}
+        width="1080"
+        height="1920"
+        controls={false}
+        muted
+        preload="none"
+        key={item?.id}
+      >
+        <source src={item.src} type="video/mp4" />
+      </video>
     </div>
   );
 }
