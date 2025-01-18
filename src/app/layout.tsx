@@ -13,10 +13,10 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "App Name",
+  title: "TrumpLive",
   description: "App Description",
   openGraph: {
-    title: "App Name",
+    title: "TrumpLive",
     description: "App Description",
     url: "/",
     images: [
@@ -40,7 +40,12 @@ export default async function RootLayout({
     <>
       <Aos />
       <html lang="en" className="relative">
-        <body className={twMerge(dmSans.variable, "font-dm antialiased bg-[#061936]")}>
+        <body
+          className={twMerge(
+            dmSans.variable,
+            "bg-[#061936] font-dm antialiased",
+          )}
+        >
           <Providers config={configs?.[0] || null}>{children}</Providers>
         </body>
       </html>

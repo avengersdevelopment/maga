@@ -6,16 +6,24 @@ import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { IChat } from "./container";
+import { useRouter } from "next/navigation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 interface Section2Props {
   chats: IChat[];
   setTotal: React.Dispatch<React.SetStateAction<number>>;
+  total: number;
 }
 
-export const Section2 = ({ chats, setTotal }: Section2Props) => {
+export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
   const supabase = createClient();
+  const router = useRouter();
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   const [commentsList, setCommentsList] = useState<IChat[]>(
@@ -37,7 +45,7 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
   const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && newComment.trim()) {
       if (!user) {
-        handleToggleDialog();
+        router.replace("/welcome");
         return;
       } else {
         await supabase.from("chats").insert({
@@ -49,28 +57,6 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
         setLastCommentDate(new Date());
         setIsCommentDisabled(true);
       }
-    }
-  };
-
-  const handleToggleDialog = (action?: "show" | "close") => {
-    if (!dialogRef.current) {
-      return;
-    }
-
-    if (action === "show") {
-      dialogRef.current.showModal();
-    } else if (action === "close") {
-      dialogRef.current.close();
-    } else {
-      dialogRef.current.hasAttribute("open")
-        ? dialogRef.current.close()
-        : dialogRef.current.showModal();
-    }
-  };
-
-  const handleSubmitDialog = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && e.currentTarget.value.trim()) {
-      setUser(e.currentTarget.value.trim());
     }
   };
 
@@ -105,14 +91,6 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
   }, [supabase]);
 
   useEffect(() => {
-    if (user) {
-      handleToggleDialog("close");
-    } else {
-      handleToggleDialog("show");
-    }
-  }, [user]);
-
-  useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
@@ -133,8 +111,8 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
   }, [lastCommentDate]);
 
   return (
-    <section className="h-screen w-full bg-white py-8 flex justify-center">
-      <div className="max-w-[90vw] flex h-full w-full flex-col justify-center gap-4">
+    <section className="flex h-screen w-full justify-center bg-white py-8">
+      <div className="flex h-full w-full max-w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="flex w-3/4 flex-col">
             <p className="text-nowrap text-xl font-bold text-[#061936] md:text-6xl">
@@ -154,24 +132,42 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
               alt="Coin"
               className="h-[15px] w-auto hover:animate-shake md:h-[25px]"
             />
-            <p className="text-xl font-bold text-white">13</p>
-            <Image
-              src={"/assets/homepage/i-icon.png"}
-              width={480}
-              height={480}
-              alt="Coin"
-              className="ml-1 h-[15px] w-auto md:ml-4"
-            />
+            <p className="text-xl font-bold text-white">{total}</p>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Image
+                    src={"/assets/homepage/i-icon.png"}
+                    width={480}
+                    height={480}
+                    alt="Coin"
+                    className="ml-1 h-[15px] w-auto md:ml-4"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="mb-2 flex gap-2 rounded-lg bg-[#D9D9D9] p-2">
+                    <Image
+                      src={"/assets/homepage/i-black-icon.png"}
+                      width={480}
+                      height={480}
+                      alt="Coin"
+                      className="h-[15px] w-auto"
+                    />
+                    <p className="">Get Trump MemeCoin by Commenting Below!</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
 
         <div className="flex h-full w-full flex-col gap-2 md:flex-row">
           <div className="basis-1/2 border md:basis-2/3">
-            <iframe
+            {/* <iframe
               className="h-full w-full"
               allowFullScreen
               src="https://player.kick.com/trump-live"
-            />
+            /> */}
           </div>
 
           <div className="basis-1/2 rounded-md border bg-[#061936] md:basis-1/3">
@@ -188,7 +184,7 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
                     <div key={comment.id} className="flex gap-2">
                       <p
                         className={cn(
-                          "text-sm text-white",
+                          "text-[2vh] text-white",
                           isBot && "text-[#B9F1FF]",
                         )}
                       >
@@ -202,13 +198,14 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
 
               <input
                 type="text"
+                value={newComment}
                 placeholder={
                   isCommentDisabled
                     ? `Disabled for ${countdown < 0 ? 30 : countdown} seconds...`
                     : "Enter any comment here..."
                 }
                 className={cn(
-                  "mx-4 mb-3 mt-1 rounded-md border border-white bg-transparent px-2 py-1 text-sm text-white placeholder:text-white/50 focus:outline-none",
+                  "mx-4 mb-3 mt-1 rounded-md border border-white bg-transparent px-2 py-1 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
                 )}
                 onChange={(e) => {
                   const value = e.target.value;

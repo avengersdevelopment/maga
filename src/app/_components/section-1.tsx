@@ -30,16 +30,14 @@ export const Section1 = () => {
         priority
       />
 
-      <div className="absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full flex-col items-center justify-center px-10">
-        <Image
-          src={"/assets/homepage/hero-text.png"}
-          width={1000}
-          height={1000}
-          alt="Hero"
-          className="h-auto w-full"
-          priority
-        />
-      </div>
+      <Image
+        src={"/assets/homepage/hero-text.png"}
+        width={1000}
+        height={1000}
+        alt="Hero"
+        className="h-auto w-[90vw] absolute left-[5%] right-0 top-[15%] bottom-0"
+        priority
+      />
     </section>
   );
 };

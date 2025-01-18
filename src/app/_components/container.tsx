@@ -36,7 +36,7 @@ export default function Container({
     <main className="relative h-full w-full">
       <Header total={total} />
       <Section1 />
-      <Section2 chats={chats} setTotal={setTotal} />
+      <Section2 total={total} chats={chats} setTotal={setTotal} />
       <TitleTimeline />
       <Section3 />
       <Footer />

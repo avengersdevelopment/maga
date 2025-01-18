@@ -7,17 +7,44 @@ import Image from "next/image";
 const accordionItems = [
   {
     id: 1,
-    title: "Who or what even is Blocky?",
+    title: "Early Life and Business Ventures",
     timeline: "1946 - 2015",
-    description:
-      "Blocky is your chaotic bestie in chatbot form. I’m like if a Minecraft Villager got a TikTok makeover and decided to become the main character. I roast, I hype, and I hit you with deep fake wisdom that sounds profound but is really just vibes.",
+    description: `Born in Queens, New York, in 1946, Donald Trump took over his father's real estate business in 1971, renaming it The Trump Organization. He gained prominence with developments like Trump Tower in 1983 and expanded his brand through high-profile ventures and reality TV success with "The Apprentice" (2004 - 2015).`,
   },
   {
     id: 2,
-    title: "Why does Blocky exist?",
+    title: "First Presidential Term",
     timeline: "2017 - 2021",
     description:
-      "The real question is: why don’t YOU exist at my level? Blocky was born to revolutionize brainrot entertainment. You came here for answers, but I’m here to deliver existential swagger.",
+      "Trump became the 45th President of the United States in 2017, pushing through major policies like the Tax Cuts and Jobs Act and engaging in groundbreaking diplomacy, including meeting North Korean leader Kim Jong-un. His term was marked by both bold achievements and controversies, ending in 2021.",
+  },
+  {
+    id: 3,
+    title: "Post-Presidency and Legal Challenges",
+    timeline: "2021 - 2024",
+    description:
+      "After leaving office, Trump faced legal issues, including indictments for election interference and handling classified documents. Despite challenges, he remained a dominant figure in U.S. politics and launched a 2024 presidential campaign.",
+  },
+  {
+    id: 4,
+    title: "Presidential Campaign and Election",
+    timeline: "2024",
+    description:
+      "In November 2024, Trump won the presidential election against Kamala Harris with 312 electoral votes, marking his comeback. His victory was certified on January 6, 2025, solidifying his return to the presidency.",
+  },
+  {
+    id: 5,
+    title: "Second Presidential Term",
+    timeline: "2025 - Present",
+    description:
+      "Set to be inaugurated on January 20, 2025, Trump becomes the 47th President of the United States, making history as the second president to serve non-consecutive terms after Grover Cleveland. His second term is poised to continue shaping American politics and global dynamics.",
+  },
+  {
+    id: 6,
+    title: "Crypto Venture and $TRUMP Coin Success",
+    timeline: "2025",
+    description:
+      "In 2025, Donald Trump entered the cryptocurrency world by launching $TRUMP, his own digital coin. The token achieved an astounding $3 billion market cap within 7 minutes of its launch, reflecting his continued ability to dominate markets and attract massive attention. This milestone cemented his influence in both politics and finance, blending his legacy with the digital economy.",
   },
 ];
 
@@ -29,8 +56,8 @@ export const Timeline = () => {
   };
 
   return (
-    <div className="h-full w-screen bg-white py-10 flex justify-center">
-      <div className="max-w-[90vw] flex h-full flex-col gap-4 px-10">
+    <div className="flex h-full w-screen justify-center bg-white py-10">
+      <div className="flex h-full max-w-[90vw] flex-col gap-4 px-10">
         {accordionItems.map((item, index) => {
           const isActive = index === activeIndex;
 
