@@ -222,7 +222,6 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                   onKeyDown={handleSubmit}
                   disabled={isCommentDisabled}
                 />
-
                 butt
               </div>
             </div>
