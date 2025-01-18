@@ -36,7 +36,6 @@ export default function Container() {
 
   const handleChangeVideo = () => {
     const isAnswer = !!latestQuestion?.answer?.audio;
-    console.log("isAnswer", isAnswer);
 
     if (isAnswer) {
       setLatestAnswer(latestQuestion);
@@ -144,6 +143,7 @@ export default function Container() {
         if (audioAnswerRef.current?.ended) {
           setIsAnswerInteract(false);
           setLatestAnswer(null);
+          handleChangeVideo();
         }
       }, 1000);
 
