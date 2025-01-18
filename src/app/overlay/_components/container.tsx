@@ -135,18 +135,22 @@ export default function Container() {
   }, [latestAnswer]);
 
   useEffect(() => {
-    if (isQuestionInteract) {
-      setIsQuestionInteract(false);
-      setIsAnswerInteract(true);
-    }
-  }, [audioQuestionRef.current?.ended]);
+    if (latestAnswer) {
+      const interval = setInterval(() => {
+        if (audioQuestionRef.current?.ended) {
+          setIsQuestionInteract(false);
+          setIsAnswerInteract(true);
+        }
 
-  useEffect(() => {
-    if (isAnswerInteract) {
-      setIsAnswerInteract(false);
-      setLatestAnswer(null);
+        if (audioAnswerRef.current?.ended) {
+          setIsAnswerInteract(false);
+          setLatestAnswer(null);
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
     }
-  }, [audioAnswerRef.current?.ended]);
+  }, [latestAnswer]);
 
   useEffect(() => {
     if (isQuestionInteract && audioQuestionRef.current) {
@@ -183,7 +187,7 @@ export default function Container() {
                 <p className="max-w-[680px] text-[20px] font-semibold text-white">
                   <TypeAnimation
                     sequence={[
-                      `${latestQuestion?.sender}: ${latestQuestion?.question?.text}` ||
+                      `${latestAnswer?.sender}: ${latestAnswer?.question?.text}` ||
                         "",
                     ]}
                     repeat={0}
@@ -193,7 +197,7 @@ export default function Container() {
               {isAnswerInteract && (
                 <p className="max-w-[680px] text-[20px] font-semibold text-white">
                   <TypeAnimation
-                    sequence={[`ME: ${latestQuestion?.answer?.text}` || ""]}
+                    sequence={[`ME: ${latestAnswer?.answer?.text}` || ""]}
                     repeat={0}
                   />
                 </p>
