@@ -25,12 +25,12 @@ export const Timeline = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   const toggleItem = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
+    setActiveIndex(index);
   };
 
   return (
-    <div className="h-full w-screen bg-white py-10">
-      <div className="container flex h-full flex-col gap-4 px-10">
+    <div className="h-full w-screen bg-white py-10 flex justify-center">
+      <div className="max-w-[90vw] flex h-full flex-col gap-4 px-10">
         {accordionItems.map((item, index) => {
           const isActive = index === activeIndex;
 

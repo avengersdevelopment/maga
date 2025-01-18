@@ -35,7 +35,6 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
   } = useUserStore();
 
   const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.info('asdasdasd')
     if (e.key === "Enter" && newComment.trim()) {
       if (!user) {
         handleToggleDialog();
@@ -134,8 +133,8 @@ export const Section2 = ({ chats, setTotal }: Section2Props) => {
   }, [lastCommentDate]);
 
   return (
-    <section className="h-screen w-full bg-white py-8">
-      <div className="container flex h-full w-full flex-col gap-4">
+    <section className="h-screen w-full bg-white py-8 flex justify-center">
+      <div className="max-w-[90vw] flex h-full w-full flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="flex w-3/4 flex-col">
             <p className="text-nowrap text-xl font-bold text-[#061936] md:text-6xl">
