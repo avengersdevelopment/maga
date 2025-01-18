@@ -111,7 +111,10 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
   }, [lastCommentDate]);
 
   return (
-    <section className="flex h-screen w-full justify-center bg-white py-8">
+    <section
+      id="livestream"
+      className="flex h-screen w-full justify-center bg-white py-8"
+    >
       <div className="flex h-full w-full max-w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="flex w-3/4 flex-col mt-16">

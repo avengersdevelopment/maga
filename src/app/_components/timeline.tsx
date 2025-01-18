@@ -56,7 +56,10 @@ export const Timeline = () => {
   };
 
   return (
-    <div className="flex h-full w-screen justify-center bg-white py-10 mb-16">
+    <div
+      id="history"
+      className="mb-16 flex h-full w-screen justify-center bg-white py-10"
+    >
       <div className="flex h-full max-w-[90vw] flex-col gap-8 px-10">
         {accordionItems.map((item, index) => {
           const isActive = index === activeIndex;
@@ -68,7 +71,7 @@ export const Timeline = () => {
                 "flex w-full cursor-pointer items-start gap-4 rounded-lg px-4",
                 isActive
                   ? "bg-[#061936]"
-                  : "border-b border-dashed border-[#BDBDBD] border-spacing-x-8 bg-white",
+                  : "border-spacing-x-8 border-b border-dashed border-[#BDBDBD] bg-white",
               )}
               onClick={() => toggleItem(index)}
             >

@@ -1,4 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+
+const navItems = [
+  { label: "LIVE STREAM", href: "#livestream" },
+  { label: "HISTORY", href: "#history" },
+];
 
 export const Section1 = () => {
   return (
@@ -35,9 +41,43 @@ export const Section1 = () => {
         width={1000}
         height={1000}
         alt="Hero"
-        className="h-auto w-[90vw] absolute left-[5%] right-0 top-[15%] bottom-0"
+        className="absolute bottom-0 left-[5%] right-0 top-[15%] h-auto w-[90vw]"
         priority
       />
+      <div className="absolute -bottom-16 left-[4vw] z-40 md:left-[10vw]">
+        <div className="rotate-[4deg] rounded-[40px] bg-white p-6 pb-12 pt-4 md:p-8 md:pb-12 md:pt-6">
+          <div className="flex rotate-[-4deg] flex-col gap-2 pb-8 pt-4">
+            {navItems?.map((item, index) => {
+              return (
+                <Link href={item?.href} key={index}>
+                  <button className="group flex w-[320px] items-center justify-between gap-4 rounded-md px-2 py-2.5 transition-all hover:bg-[#BB133E]">
+                    <span className="text-base font-bold group-hover:text-white md:text-lg">
+                      {item?.label}
+                    </span>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#000000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        className="size-5 stroke-black group-hover:stroke-white md:size-6"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </span>
+                  </button>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
