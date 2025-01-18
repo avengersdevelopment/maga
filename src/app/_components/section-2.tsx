@@ -118,16 +118,16 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
       <div className="flex h-full w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="mb-10 mt-16 flex w-3/4 flex-col">
-            <p className="text-nowrap text-3xl font-futuraBold font-bold text-[#061936] md:text-8xl">
+            <p className="font-futuraBold text-nowrap text-3xl font-bold text-[#061936] md:text-8xl">
               WITNESS AND INTERACT WITH
             </p>
-            <p className="text-3xl font-futuraBold font-bold text-[#061936] md:text-8xl">
+            <p className="font-futuraBold text-3xl font-bold text-[#061936] md:text-8xl">
               <span className="text-[#BB133E]">THE ICONIC</span> DONALD TRUMP,
               LIVE.
             </p>
           </div>
 
-          <div className="flex items-center gap-1 rounded-md bg-[#061936] p-2 md:p-4 md:gap-2">
+          <div className="flex items-center gap-1 rounded-md bg-[#061936] p-2 md:gap-2 md:p-4">
             <Image
               src={"/assets/homepage/coin-icon.png"}
               width={480}
@@ -135,7 +135,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
               alt="Coin"
               className="h-[15px] w-auto hover:animate-shake md:h-[64px]"
             />
-            <p className="text-sm md:text-3xl font-bold text-white">{total}</p>
+            <p className="text-sm font-bold text-white md:text-3xl">{total}</p>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -167,15 +167,15 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
         </div>
 
         <div className="flex h-full w-full flex-col gap-2 md:flex-row">
-          <div className="basis-1/2 h-[50vh] md:h-[100vh] rounded-xl border md:basis-2/3">
+          <div className="h-[50vh] basis-1/2 rounded-xl border md:h-[100vh] md:basis-2/3">
             <iframe
-              className="h-[50vh] md:h-[100vh] w-full rounded-xl"
+              className="h-[50vh] w-full rounded-xl md:h-[100vh]"
               allowFullScreen
               src="https://player.kick.com/trump-live"
             />
           </div>
 
-          <div className="h-[50vh] md:h-[100vh] rounded-md border bg-[#061936] md:basis-1/3">
+          <div className="h-[50vh] rounded-md border bg-[#061936] md:h-[100vh] md:basis-1/3">
             <div className="flex h-full w-full flex-col">
               <p className="px-6 py-4 font-bold text-white md:text-2xl">
                 Say something and get noticed by Trump!
@@ -201,26 +201,30 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                 })}
               </div>
 
-              <input
-                type="text"
-                value={newComment}
-                placeholder={
-                  isCommentDisabled
-                    ? `Disabled for ${countdown < 0 ? 30 : countdown} seconds...`
-                    : "Enter any comment here..."
-                }
-                className={cn(
-                  "placeholder:text-md mx-7 mb-6 mt-1 rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
-                )}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (value.length <= 80) {
-                    setNewComment(value);
+              <div className="flex w-full">
+                <input
+                  type="text"
+                  value={newComment}
+                  placeholder={
+                    isCommentDisabled
+                      ? `Disabled for ${countdown < 0 ? 30 : countdown} seconds...`
+                      : "Enter any comment here..."
                   }
-                }}
-                onKeyDown={handleSubmit}
-                disabled={isCommentDisabled}
-              />
+                  className={cn(
+                    "placeholder:text-md mx-7 mb-6 mt-1 w-full rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
+                  )}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length <= 80) {
+                      setNewComment(value);
+                    }
+                  }}
+                  onKeyDown={handleSubmit}
+                  disabled={isCommentDisabled}
+                />
+
+                butt
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="relative h-[50vh] w-full bg-[#061936]">
+    <footer className="relative h-[25vh] md:h-[50vh] w-full bg-[#061936]">
       <Image
         src={"/assets/homepage/footer-flag.png"}
         width={1000}
