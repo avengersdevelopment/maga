@@ -1,9 +1,10 @@
 // app/api/tts/route.ts
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import { NextRequest, NextResponse } from 'next/server';
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { NextRequest, NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // Types
 interface MessageResponse {
@@ -30,28 +31,32 @@ let sessionCookie: string | null = null;
 // Function to authenticate with FakeYou
 async function authenticate(): Promise<boolean> {
   try {
-    const response = await axios.post('https://api.fakeyou.com/v1/login', {
-      username_or_email: process.env.FAKEYOU_USERNAME,
-      password: process.env.FAKEYOU_PASSWORD
-    }, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await axios.post(
+      "https://api.fakeyou.com/v1/login",
+      {
+        username_or_email: process.env.FAKEYOU_USERNAME,
+        password: process.env.FAKEYOU_PASSWORD,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     if (!response.data.success) {
-      throw new Error('Authentication failed');
+      throw new Error("Authentication failed");
     }
 
     // Extract and store session cookie
-    const cookie = response.headers['set-cookie']?.[0].split(';')[0];
+    const cookie = response.headers["set-cookie"]?.[0].split(";")[0];
     if (!cookie) {
-      throw new Error('No cookie received');
+      throw new Error("No cookie received");
     }
     sessionCookie = cookie;
     return true;
   } catch (error) {
-    console.error('Authentication error:', error);
+    console.error("Authentication error:", error);
     throw error;
   }
 }
@@ -65,106 +70,125 @@ async function makeTTSRequest(text: string): Promise<string> {
     }
 
     // Step 1: Make inference request
-    const inferenceResponse = await axios.post('https://api.fakeyou.com/tts/inference', {
-      uuid_idempotency_token: uuidv4(),
-      tts_model_token: process.env.FAKEYOU_MODEL_TOKEN,
-      inference_text: text
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': sessionCookie
-      }
-    });
+    const inferenceResponse = await axios.post(
+      "https://api.fakeyou.com/tts/inference",
+      {
+        uuid_idempotency_token: uuidv4(),
+        tts_model_token: process.env.FAKEYOU_MODEL_TOKEN,
+        inference_text: text,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: sessionCookie,
+        },
+      },
+    );
 
     if (!inferenceResponse.data.success) {
-      throw new Error('TTS inference request failed');
+      throw new Error("TTS inference request failed");
     }
 
     const jobToken = inferenceResponse.data.inference_job_token;
-    
+
     // Step 2: Poll for completion
     let attempts = 0;
     const maxAttempts = 60; // 30 seconds with 500ms interval
-    
+
     while (attempts < maxAttempts) {
-      const pollResponse = await axios.get(`https://api.fakeyou.com/tts/job/${jobToken}`, {
-        headers: {
-          'Cookie': sessionCookie
-        }
-      });
+      const pollResponse = await axios.get(
+        `https://api.fakeyou.com/tts/job/${jobToken}`,
+        {
+          headers: {
+            Cookie: sessionCookie,
+          },
+        },
+      );
 
       const status = pollResponse.data.state.status;
-      
-      if (status === 'complete_success') {
-        const audioPath = pollResponse.data.state.maybe_public_bucket_wav_audio_path;
+
+      if (status === "complete_success") {
+        const audioPath =
+          pollResponse.data.state.maybe_public_bucket_wav_audio_path;
         return `https://cdn-2.fakeyou.com${audioPath}`;
-      } else if (status === 'complete_failure' || status === 'dead') {
-        throw new Error('TTS generation failed');
+      } else if (status === "complete_failure" || status === "dead") {
+        throw new Error("TTS generation failed");
       }
 
       attempts++;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
-    throw new Error('TTS generation timeout');
+    throw new Error("TTS generation timeout");
   } catch (error) {
-    console.error('TTS request error:', error);
+    console.error("TTS request error:", error);
     throw error;
   }
 }
 
 // Main API handler
-export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse>> {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<ApiResponse>> {
   try {
     // Parse the request body
     const body = await request.json();
     const message = body.message;
 
     if (!message) {
-      return NextResponse.json({
-        success: false,
-        error: 'Message is required'
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Message is required",
+        },
+        { status: 400 },
+      );
     }
 
     // Step 1: Get response from the message API
     const messageResponse = await axios.post<MessageResponse>(
       "https://flow.soluvion.com/api/v1/prediction/18acbc60-7a2a-47a0-8d3e-4a29e74b25b3",
       {
-        question: message
+        question: message,
       },
       {
         headers: {
-          "Content-Type": "application/json"
-        }
-      }
+          "Content-Type": "application/json",
+        },
+      },
     );
 
     // Step 2: Generate TTS for both question and answer in parallel
     const [questionAudioUrl, answerAudioUrl] = await Promise.all([
       makeTTSRequest(message),
-      makeTTSRequest(messageResponse.data.text)
+      makeTTSRequest(messageResponse.data.text),
     ]);
 
     // Step 3: Return formatted response
-    return NextResponse.json({
-      success: true,
-      data: {
-        message: messageResponse.data.text,
-        answer: {
-          originalAudioUrl: answerAudioUrl
+    return NextResponse.json(
+      {
+        success: true,
+        data: {
+          message: messageResponse.data.text,
+          answer: {
+            originalAudioUrl: answerAudioUrl,
+          },
+          question: {
+            originalAudioUrl: questionAudioUrl,
+          },
         },
-        question: {
-          originalAudioUrl: questionAudioUrl
-        }
-      }
-    }, { status: 200 });
-
+      },
+      { status: 200 },
+    );
   } catch (error) {
-    console.error('API error:', error);
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
-    }, { status: 500 });
+    console.error("API error:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          error instanceof Error ? error.message : "Unknown error occurred",
+      },
+      { status: 500 },
+    );
   }
 }
