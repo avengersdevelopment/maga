@@ -9,15 +9,29 @@ import "./globals.css";
 const fontFutura = localFont({
   src: [
     {
-      path: "../../public/fonts/futura.otf",
+      path: "../../public/fonts/futura.ttf",
       weight: "400",
     },
     {
-      path: "../../public/fonts/futura.otf",
+      path: "../../public/fonts/futura.ttf",
       weight: "700",
     },
   ],
   variable: "--font-futura",
+});
+
+const fontFuturaBold = localFont({
+  src: [
+    {
+      path: "../../public/fonts/futura-bold.ttf",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/futura-bold.ttf",
+      weight: "700",
+    },
+  ],
+  variable: "--font-futura-bold",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +65,8 @@ export default async function RootLayout({
         <body
           className={twMerge(
             fontFutura.variable,
-            "bg-[#061936] font-futura antialiased",
+            fontFuturaBold.variable,
+            "font-futura bg-[#061936] antialiased",
           )}
         >
           <Providers config={configs?.[0] || null}>{children}</Providers>

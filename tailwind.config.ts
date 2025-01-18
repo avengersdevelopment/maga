@@ -16,6 +16,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         futura: ["var(--font-futura)"],
+        futuraBold: ["var(--font-futura-bold)"]
       },
       container: {
         center: true,
