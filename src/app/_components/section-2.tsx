@@ -69,6 +69,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
         "n*gga",
         "n.i.g.g.a",
         "n!gga",
+        "larp",
       ];
 
       const forbiddenWordPattern = new RegExp(badWords.join("|"), "i");
@@ -160,7 +161,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
       <div className="flex h-full w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="mb-10 mt-16 flex w-3/4 flex-col">
-            <p className="font-futuraBold text-nowrap text-3xl font-bold text-[#061936] md:text-8xl">
+            <p className="text-nowrap font-futuraBold text-3xl font-bold text-[#061936] md:text-8xl">
               WITNESS AND INTERACT WITH
             </p>
             <p className="font-futuraBold text-3xl font-bold text-[#061936] md:text-8xl">
@@ -281,7 +282,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
           >
             <div className="w-[320px] rounded-3xl bg-[#061936] px-8 py-6 md:w-[480px]">
               <div className="flex flex-col items-center gap-2">
-                <h2 className="font-futuraBold text-center text-3xl italic tracking-wider text-white">
+                <h2 className="text-center font-futuraBold text-3xl italic tracking-wider text-white">
                   You Entered a <br /> Forbiden Word
                 </h2>
                 <p className="mb-4 text-center text-base font-medium text-white">
