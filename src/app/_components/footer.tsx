@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="relative h-[25vh] md:h-[50vh] w-full bg-[#061936]">
+    <footer className="relative h-[25vh] w-full bg-[#061936] md:h-[50vh]">
       <Image
         src={"/assets/homepage/footer-flag.png"}
         width={1000}
@@ -32,7 +32,13 @@ export const Footer = () => {
             />
           </Link>
 
-          <p className="md:text-md text-sm font-futuraBold text-white md:text-2xl">
+          <p
+            className="md:text-md font-futuraBold text-sm text-white md:text-2xl"
+            style={{
+              fontSize: "calc(24px + 2vh)",
+              lineHeight: 1
+            }}
+          >
             © 2025 Trump MemeCoin. All Rights Reserved.
           </p>
         </div>
