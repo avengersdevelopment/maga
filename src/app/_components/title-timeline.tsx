@@ -6,7 +6,7 @@ export const TitleTimeline = () => {
       <div className="relative h-full w-[90vw]">
         <div className="absolute bottom-0 left-0 right-0 top-0 md:top-0">
           <p
-            className="text-nowrap pl-8 pt-10 text-2xl font-futuraBold text-[#061936] md:text-[112px]"
+            className="text-nowrap pt-10 text-2xl font-futuraBold text-[#061936] md:text-[112px]"
             style={{ lineHeight: 1 }}
           >
             A BILLIONAIRE. A MEDIA
