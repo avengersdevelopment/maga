@@ -135,6 +135,8 @@ export async function POST(
     const body = await request.json();
     const message = body.message;
 
+    console.log("1", message);
+
     if (!message) {
       return NextResponse.json(
         {
@@ -145,6 +147,7 @@ export async function POST(
       );
     }
 
+    console.log("2", message);
     // Step 1: Get response from the message API
     const messageResponse = await axios.post<MessageResponse>(
       "https://flow.soluvion.com/api/v1/prediction/18acbc60-7a2a-47a0-8d3e-4a29e74b25b3",
@@ -158,11 +161,15 @@ export async function POST(
       },
     );
 
+    console.log("3", messageResponse.data.text);
+
     // Step 2: Generate TTS for both question and answer in parallel
     const [questionAudioUrl, answerAudioUrl] = await Promise.all([
       makeTTSRequest(message),
       makeTTSRequest(messageResponse.data.text),
     ]);
+
+    console.log("4", questionAudioUrl, answerAudioUrl);
 
     // Step 3: Return formatted response
     return NextResponse.json(
