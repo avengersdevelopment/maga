@@ -63,11 +63,11 @@ export default function Container() {
           ...latestQuestion,
           question: {
             text: latestQuestion?.question?.text,
-            audio: res?.data?.data?.question?.modulatedAudioUrl,
+            audio: res?.data?.data?.question?.originalAudioUrl,
           },
           answer: {
             text: res?.data?.data?.message,
-            audio: res?.data?.data?.answer?.modulatedAudioUrl,
+            audio: res?.data?.data?.answer?.originalAudioUrl,
           },
         };
 
