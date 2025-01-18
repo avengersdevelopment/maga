@@ -7,13 +7,14 @@ import { useEffect, useState } from "react";
 
 interface HeaderProps {
   total: number;
+  linkBuy: string;
 }
-export const Header = ({ total }: HeaderProps) => {
+export const Header = ({ total, linkBuy }: HeaderProps) => {
   const [isScroll, setIsScroll] = useState<boolean>();
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > (window.screen.height - 100);
+      const isScrolled = window.scrollY > window.screen.height - 100;
 
       setIsScroll(isScrolled);
     };
@@ -31,7 +32,9 @@ export const Header = ({ total }: HeaderProps) => {
       )}
     >
       <div className="my-2 flex h-full w-full max-w-[90vw] items-center justify-between py-2">
-        <p className="text-xl font-futuraBold text-white md:text-4xl">TRUMPLIVE</p>
+        <p className="font-futuraBold text-xl text-white md:text-4xl">
+          TRUMPLIVE
+        </p>
 
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
@@ -47,7 +50,7 @@ export const Header = ({ total }: HeaderProps) => {
             </p>
           </div>
 
-          <Link href={""}>
+          <Link href={linkBuy}>
             <Image
               src={"/assets/homepage/btn-buy.png"}
               width={480}

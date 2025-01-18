@@ -36,10 +36,10 @@ const fontFuturaBold = localFont({
 
 export const metadata: Metadata = {
   title: "TrumpLive",
-  description: "Interact With The Sensational Donald Trump",
+  description: "The voice of the 47th President. Watch my Livestream! 🇺🇸",
   openGraph: {
     title: "TrumpLive",
-    description: "Interact With The Sensational Donald Trump",
+    description: "The voice of the 47th President. Watch my Livestream! 🇺🇸",
     url: "/",
     images: [
       {

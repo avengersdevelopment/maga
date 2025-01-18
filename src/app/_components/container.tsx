@@ -16,7 +16,7 @@ export interface IChat {
 
 interface ContainerProps {
   config: {
-    x_url: string;
+    x_coin_url: string;
     x_dev_url: string;
     buy_url: string;
     docs: string;
@@ -34,12 +34,12 @@ export default function Container({
 
   return (
     <main className="relative h-full w-full">
-      <Header total={total} />
+      <Header linkBuy={config.buy_url || ""} total={total} />
       <Section1 />
       <Section2 total={total} chats={chats} setTotal={setTotal} />
       <TitleTimeline />
       <Section3 />
-      <Footer />
+      <Footer linkX={config.x_coin_url || ""} />
     </main>
   );
 }
