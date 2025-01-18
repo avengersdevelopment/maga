@@ -58,9 +58,9 @@ export const Timeline = () => {
   return (
     <div
       id="history"
-      className="mb-16 flex h-full w-screen justify-center bg-white py-10"
+      className="mb-16 flex h-full w-screen justify-center bg-white py-16"
     >
-      <div className="flex h-full max-w-[90vw] flex-col gap-8 px-10">
+      <div className="flex h-full w-[90vw] flex-col gap-8 px-10">
         {accordionItems.map((item, index) => {
           const isActive = index === activeIndex;
 

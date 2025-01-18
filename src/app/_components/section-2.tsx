@@ -113,9 +113,9 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
   return (
     <section
       id="livestream"
-      className="flex h-screen w-full justify-center bg-white py-8"
+      className="flex h-full w-full justify-center bg-white py-8"
     >
-      <div className="flex h-full w-full max-w-[90vw] flex-col justify-center gap-4">
+      <div className="flex h-full w-[90vw] flex-col justify-center gap-4">
         <div className="flex w-full items-end justify-between">
           <div className="mb-10 mt-16 flex w-3/4 flex-col">
             <p className="text-nowrap text-xl font-bold text-[#061936] md:text-6xl">
@@ -144,7 +144,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                     width={480}
                     height={480}
                     alt="Coin"
-                    className="ml-1 h-[15px] md:h-[30px] w-auto"
+                    className="ml-1 h-[15px] w-auto md:h-[30px]"
                   />
                 </TooltipTrigger>
                 <TooltipContent>
@@ -156,7 +156,9 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                       alt="Coin"
                       className="h-[25px] w-auto"
                     />
-                    <p className="text-xl">Get Trump MemeCoin by Commenting Below!</p>
+                    <p className="text-xl">
+                      Get Trump MemeCoin by Commenting Below!
+                    </p>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -175,21 +177,22 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
 
           <div className="basis-1/2 rounded-md border bg-[#061936] md:basis-1/3">
             <div className="flex h-full w-full flex-col">
-              <p className="px-6 py-4 md:text-2xl font-bold text-white">Say something and get noticed by Trump!</p>
+              <p className="px-6 py-4 font-bold text-white md:text-2xl">
+                Say something and get noticed by Trump!
+              </p>
 
-              <div className="h-[1px] w-full border-b border-white p-0 m-0" />
+              <div className="m-0 h-[1px] w-full border-b border-white p-0" />
 
               {/* List Chat */}
-              <div ref={listRef} className="flex h-full w-full flex-col px-6 py-4">
+              <div
+                ref={listRef}
+                className="flex h-full w-full flex-col overflow-y-auto px-6 py-4"
+              >
                 {commentsList.map((comment) => {
                   const isBot = comment.sender.includes("Bot");
                   return (
                     <div key={comment.id} className="flex gap-2">
-                      <p
-                        className={cn(
-                          "text-[2vh] text-[#BB133E]",
-                        )}
-                      >
+                      <p className={cn("text-[2vh] text-[#BB133E]")}>
                         {comment.sender}:{" "}
                         <span className="text-white">{comment.content}</span>
                       </p>
@@ -207,7 +210,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                     : "Enter any comment here..."
                 }
                 className={cn(
-                  "mx-7 mb-6 mt-1 rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none placeholder:text-md",
+                  "placeholder:text-md mx-7 mb-6 mt-1 rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
                 )}
                 onChange={(e) => {
                   const value = e.target.value;

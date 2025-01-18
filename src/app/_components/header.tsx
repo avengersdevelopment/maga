@@ -13,7 +13,7 @@ export const Header = ({ total }: HeaderProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > window.screen.height;
+      const isScrolled = window.scrollY > (window.screen.height - 100);
 
       setIsScroll(isScrolled);
     };

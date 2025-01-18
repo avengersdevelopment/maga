@@ -8,7 +8,7 @@ export default async function Page() {
     .from("chats")
     .select()
     .order("created_at", { ascending: false })
-    .limit(20);
+    .limit(25);
 
   const { count: totalChats } = await supabase
     .from("chats")
