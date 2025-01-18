@@ -35,8 +35,7 @@ export default function Container() {
   const [isAnswerInteract, setIsAnswerInteract] = useState<boolean>(false);
 
   const handleChangeVideo = () => {
-    const isAnswer =
-      !!latestQuestion?.answer?.audio && !!latestAnswer?.answer?.text;
+    const isAnswer = !!latestQuestion?.answer?.audio;
 
     if (isAnswer) {
       setLatestAnswer(latestQuestion);
