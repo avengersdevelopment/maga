@@ -174,21 +174,20 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
           </div>
 
           <div className="basis-1/2 rounded-md border bg-[#061936] md:basis-1/3">
-            <div className="flex h-full w-full flex-col gap-2">
-              <p className="p-2 font-bold text-white">Comments</p>
+            <div className="flex h-full w-full flex-col">
+              <p className="px-6 py-4 md:text-2xl font-bold text-white">Say something and get noticed by Trump!</p>
 
-              <div className="h-[1px] w-full border-b border-white" />
+              <div className="h-[1px] w-full border-b border-white p-0 m-0" />
 
               {/* List Chat */}
-              <div ref={listRef} className="flex h-full w-full flex-col px-2">
+              <div ref={listRef} className="flex h-full w-full flex-col px-6 py-4">
                 {commentsList.map((comment) => {
                   const isBot = comment.sender.includes("Bot");
                   return (
                     <div key={comment.id} className="flex gap-2">
                       <p
                         className={cn(
-                          "text-[2vh] text-white",
-                          isBot && "text-[#B9F1FF]",
+                          "text-[2vh] text-[#BB133E]",
                         )}
                       >
                         {comment.sender}:{" "}
@@ -208,7 +207,7 @@ export const Section2 = ({ chats, setTotal, total }: Section2Props) => {
                     : "Enter any comment here..."
                 }
                 className={cn(
-                  "mx-4 mb-3 mt-1 rounded-md border border-white bg-transparent px-2 py-1 text-[2vh] text-white placeholder:text-white/50 focus:outline-none",
+                  "mx-7 mb-6 mt-1 rounded-md border border-white bg-transparent px-4 py-4 text-[2vh] text-white placeholder:text-white/50 focus:outline-none placeholder:text-md",
                 )}
                 onChange={(e) => {
                   const value = e.target.value;

@@ -123,7 +123,7 @@ export const Timeline = () => {
                 </p>
 
                 {isActive && (
-                  <p className="mb-2 text-sm font-normal text-white md:text-lg">
+                  <p className="mb-2 text-sm font-normal text-white md:text-2xl">
                     {item.description}
                   </p>
                 )}

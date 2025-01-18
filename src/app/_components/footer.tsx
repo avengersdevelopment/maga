@@ -32,10 +32,10 @@ export const Footer = () => {
             />
           </Link>
 
-          <p className="md:text-md text-sm font-bold text-white">
+          <p className="md:text-md text-sm md:text-2xl font-bold text-white">
             © 2025 Trump MemeCoin. All Rights Reserved.
           </p>
-          <p className="md:text-md text-sm font-bold text-white/60">
+          <p className="md:text-md text-sm md:text-2xl font-bold text-white/60">
             *Disclaimer: Trump MemeCoin is a parody token created for
             entertainment purposes and is not officially affiliated with Donald
             J. Trump or any of his organizations.
