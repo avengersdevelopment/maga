@@ -9,6 +9,11 @@ import { useEffect, useRef, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import VideoItem from "./video-item";
 
+const contentExcludes = [
+  "opinion on your moms coin?",
+  "what do you think of ethereum",
+];
+
 export interface IQuestion {
   id?: string;
   sender?: string;
@@ -30,17 +35,25 @@ export default function Container() {
 
   const [currentVideo, setCurrentVideo] = useState<number>(2);
   const [latestQuestion, setLatestQuestion] = useState<IQuestion | null>(null);
+  const [firstAnswer, setFirstAnswer] = useState<IQuestion | null>(null);
   const [latestAnswer, setLatestAnswer] = useState<IQuestion | null>(null);
 
   const [isQuestionInteract, setIsQuestionInteract] = useState<boolean>(false);
   const [isAnswerInteract, setIsAnswerInteract] = useState<boolean>(false);
 
+  console.log("data", {
+    currentVideo,
+    latestQuestion,
+    firstAnswer,
+    latestAnswer,
+  });
+
   const handleChangeVideo = () => {
-    const isAnswer = !!latestQuestion?.answer?.audio;
+    const isAnswer = !!firstAnswer?.answer?.audio;
 
     if (isAnswer) {
-      setLatestAnswer(latestQuestion);
-      setLatestQuestion(null);
+      setLatestAnswer(firstAnswer);
+      setFirstAnswer(null);
     }
 
     setCurrentVideo(generateVideoIndex(currentVideo, isAnswer));
@@ -64,13 +77,45 @@ export default function Container() {
           },
         };
 
-        setLatestQuestion(_question);
+        setFirstAnswer(_question);
+        setLatestQuestion(null);
+      })
+      .catch((err) => {
+        handleGetAnswerError();
       });
   };
 
-  console.log("currentVideo", currentVideo);
-  console.log("latestQuestion", latestQuestion);
-  console.log("latestAnswer", latestAnswer);
+  const handleGetAnswerError = async () => {
+    await axios
+      .get("/api/iferror")
+      .then(async (res) => {
+        await supabase.from("chats").insert({
+          sender: res?.data?.data?.username,
+          content: res?.data?.data?.question?.message,
+        });
+
+        const _question = {
+          ...latestQuestion,
+          sender: res?.data?.data?.username,
+          question: {
+            text: res?.data?.data?.question?.message,
+            audio: res?.data?.data?.question?.originalAudioUrl,
+          },
+          answer: {
+            text: res?.data?.data?.answer?.message,
+            audio: res?.data?.data?.answer?.originalAudioUrl,
+          },
+        };
+
+        setTimeout(() => {
+          setFirstAnswer(_question);
+          setLatestQuestion(null);
+        }, 2000);
+      })
+      .catch((err) => {
+        handleGetAnswerError();
+      });
+  };
 
   useEffect(() => {
     supabase
@@ -84,14 +129,9 @@ export default function Container() {
         },
         (payload: any) => {
           const content = payload?.new?.content;
-          const words = content?.split(" ");
-          const blockWords = ["nigga", "nigger", "bundled", "scam", "rug"];
+          const exclude = contentExcludes?.find((item) => item === content);
 
-          if (
-            !latestQuestion &&
-            words?.length <= 10 &&
-            !blockWords.includes(content?.toLowerCase())
-          ) {
+          if (!latestQuestion && !exclude) {
             setLatestQuestion({
               id: generateUUID(),
               sender: payload?.new?.sender,
@@ -115,10 +155,10 @@ export default function Container() {
   }, [supabase]);
 
   useEffect(() => {
-    if (latestQuestion && !latestQuestion?.answer?.audio) {
+    if (latestQuestion && !latestQuestion?.answer?.audio && !firstAnswer) {
       handleGetAnswer();
     }
-  }, [latestQuestion]);
+  }, [latestQuestion, firstAnswer]);
 
   useEffect(() => {
     if (!!latestAnswer?.answer?.audio) {
@@ -145,7 +185,6 @@ export default function Container() {
           setTimeout(() => {
             setIsAnswerInteract(false);
             setLatestAnswer(null);
-            handleChangeVideo();
           }, 1000);
         }
       }, 1000);
@@ -184,18 +223,18 @@ export default function Container() {
         })}
         <div className="absolute left-0 top-0 z-10">
           <Image
-            src="/assets/overlay/front/bg.png"
+            src="/assets/overlay/front/bg-video.png"
             height={1920}
             width={1080}
             alt="bg"
-            className="h-auto w-[790px]"
+            className="h-auto w-[800px]"
           />
         </div>
         <div className="absolute bottom-12 left-12 z-40">
           <div className="flex flex-col items-start justify-start">
             <div className="bg-black/25 px-2">
               {isQuestionInteract && (
-                <p className="max-w-[680px] text-[20px] font-semibold text-white">
+                <p className="max-w-[680px] font-sans text-[20px] font-semibold text-white">
                   <TypeAnimation
                     sequence={[
                       `${latestAnswer?.sender}: ${latestAnswer?.question?.text}` ||
@@ -206,7 +245,7 @@ export default function Container() {
                 </p>
               )}
               {isAnswerInteract && (
-                <p className="max-w-[680px] text-[20px] font-semibold text-white">
+                <p className="max-w-[680px] font-sans text-[20px] font-semibold text-white">
                   <TypeAnimation
                     sequence={[`ME: ${latestAnswer?.answer?.text}` || ""]}
                     repeat={0}

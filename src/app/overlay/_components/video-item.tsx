@@ -2,7 +2,6 @@
 
 import { IVideo } from "@/utils/video";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 interface VideoItemProps {

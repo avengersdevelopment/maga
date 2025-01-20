@@ -1,7 +1,6 @@
-// app/api/tts/route.ts
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
+import https from 'https';
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,101 +24,65 @@ interface ApiResponse {
   error?: string;
 }
 
-// Store session cookie (Note: will reset on server restart)
-let sessionCookie: string | null = null;
-
-// Function to authenticate with FakeYou
-async function authenticate(): Promise<boolean> {
-  try {
-    const response = await axios.post(
-      "https://api.fakeyou.com/v1/login",
-      {
-        username_or_email: process.env.FAKEYOU_USERNAME,
-        password: process.env.FAKEYOU_PASSWORD,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (!response.data.success) {
-      throw new Error("Authentication failed");
+// Create a custom axios instance for flow.soluvion.com with SSL verification disabled
+const soluvionAxios = axios.create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+    checkServerIdentity: (hostname, cert) => {
+      return undefined; // Bypass hostname verification
     }
+  })
+});
 
-    // Extract and store session cookie
-    const cookie = response.headers["set-cookie"]?.[0].split(";")[0];
-    if (!cookie) {
-      throw new Error("No cookie received");
-    }
-    sessionCookie = cookie;
-    return true;
-  } catch (error) {
-    console.error("Authentication error:", error);
-    throw error;
-  }
-}
-
-// Function to make TTS request
+// Function to make TTS request using Typecast
 async function makeTTSRequest(text: string): Promise<string> {
   try {
-    // Ensure we're authenticated
-    if (!sessionCookie) {
-      await authenticate();
-    }
-
-    // Step 1: Make inference request
-    const inferenceResponse = await axios.post(
-      "https://api.fakeyou.com/tts/inference",
+    // Step 1: Initiate speech synthesis
+    const synthesisResponse = await axios.post(
+      `${process.env.TYPECAST_API_URL}/speak`,
       {
-        uuid_idempotency_token: uuidv4(),
-        tts_model_token: process.env.FAKEYOU_MODEL_TOKEN,
-        inference_text: text,
+        text,
+        lang: 'auto',
+        actor_id: process.env.TYPECAST_ACTOR_ID,
+        xapi_hd: true,
+        model_version: 'latest'
       },
       {
         headers: {
-          "Content-Type": "application/json",
-          Cookie: sessionCookie,
-        },
-      },
+          'Authorization': `Bearer ${process.env.TYPECAST_API_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      }
     );
 
-    if (!inferenceResponse.data.success) {
-      throw new Error("TTS inference request failed");
-    }
-
-    const jobToken = inferenceResponse.data.inference_job_token;
+    const speakUrl = synthesisResponse.data.result.speak_v2_url;
 
     // Step 2: Poll for completion
+    let audioUrl = null;
     let attempts = 0;
-    const maxAttempts = 60; // 30 seconds with 500ms interval
+    const maxAttempts = 120; // 2 minutes with 1-second intervals
 
     while (attempts < maxAttempts) {
-      const pollResponse = await axios.get(
-        `https://api.fakeyou.com/tts/job/${jobToken}`,
-        {
-          headers: {
-            Cookie: sessionCookie,
-          },
-        },
-      );
-
-      const status = pollResponse.data.state.status;
-
-      if (status === "complete_success") {
-        const audioPath =
-          pollResponse.data.state.maybe_public_bucket_wav_audio_path;
-        return `https://cdn-2.fakeyou.com${audioPath}`;
-      } else if (status === "complete_failure" || status === "dead") {
-        throw new Error("TTS generation failed");
+      const statusResponse = await axios.get(speakUrl, {
+        headers: { 'Authorization': `Bearer ${process.env.TYPECAST_API_TOKEN}` }
+      });
+      
+      const result = statusResponse.data.result;
+      
+      if (result.status === 'done') {
+        audioUrl = result.audio_download_url;
+        break;
       }
 
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
       attempts++;
-      await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
-    throw new Error("TTS generation timeout");
+    if (!audioUrl) {
+      throw new Error('Speech synthesis timed out');
+    }
+
+    return audioUrl;
   } catch (error) {
     console.error("TTS request error:", error);
     throw error;
@@ -148,9 +111,9 @@ export async function POST(
     }
 
     console.log("2", message);
-    // Step 1: Get response from the message API
-    const messageResponse = await axios.post<MessageResponse>(
-      "https://flow.soluvion.com/api/v1/prediction/18acbc60-7a2a-47a0-8d3e-4a29e74b25b3",
+    // Step 1: Get response from the message API using the custom axios instance
+    const messageResponse = await soluvionAxios.post<MessageResponse>(
+      "https://web3-flowise.7b0fqh.easypanel.host/api/v1/prediction/65138135-7c71-4ff8-98bc-b1d7a5c9744e",
       {
         question: message,
       },
